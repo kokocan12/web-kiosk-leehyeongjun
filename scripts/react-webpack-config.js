@@ -5,6 +5,7 @@ const originalConfig = '...(modules.webpackAliases || {}),';
 const aliases = [
             "'@': path.resolve(process.cwd(), 'src/')",
             "'@style': path.resolve(process.cwd(), 'src/styles')",
+            "'@lib': path.resolve(process.cwd(), 'src/lib')"
 ]
 const ins = aliases.join(',')
 const ROOT_PATH = process.cwd()
