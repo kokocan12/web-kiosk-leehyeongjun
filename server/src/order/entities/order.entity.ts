@@ -20,7 +20,7 @@ export class Order {
   food_name: string;
 
   @ManyToOne(() => Food, (food) => food.id)
-  food_id: number;
+  food_id: Food;
 
   @Column({ type: 'int' })
   unit: number;

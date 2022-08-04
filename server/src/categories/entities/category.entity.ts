@@ -1,7 +1,9 @@
+import { Food } from 'src/food/entities/food.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -19,4 +21,7 @@ export class Category {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Food, (food) => food.category)
+  foods: Food[];
 }

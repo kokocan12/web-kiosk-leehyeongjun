@@ -1,7 +1,9 @@
+import { Order } from 'src/order/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -24,4 +26,7 @@ export class OrderHistory {
 
   @Column({ type: 'tinyint', default: 0 })
   cancel: number;
+
+  @OneToMany(() => Order, (order) => order.order_history_id)
+  orders: Order[];
 }

@@ -1,5 +1,15 @@
 import { Category } from 'src/categories/entities/category.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Size, Temperature } from 'src/options/entities/option.entity';
+import { Order } from 'src/order/entities/order.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('FOOD_TB')
 export class Food {
@@ -13,8 +23,19 @@ export class Food {
   img_url: string;
 
   @ManyToOne(() => Category, (category) => category.id)
-  category_id: number;
+  category: Category;
 
   @Column({ type: 'decimal' })
   base_price: number;
+
+  @OneToMany(() => Order, (order) => order.food_id)
+  orders: Order[];
+
+  @JoinColumn()
+  @OneToOne(() => Size)
+  size: Size;
+
+  @JoinColumn()
+  @OneToOne(() => Temperature)
+  temperature: Temperature;
 }
