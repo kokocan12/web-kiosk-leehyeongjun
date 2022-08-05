@@ -22,6 +22,7 @@ export class Food {
   @Column({ type: 'varchar', length: 200 })
   img_url: string;
 
+  @JoinColumn({ name: 'category' })
   @ManyToOne(() => Category, (category) => category.id)
   category: Category;
 
@@ -31,11 +32,11 @@ export class Food {
   @OneToMany(() => Order, (order) => order.food_id)
   orders: Order[];
 
-  @JoinColumn()
+  @JoinColumn({ name: 'size', referencedColumnName: 'food_id' })
   @OneToOne(() => Size)
   size: Size;
 
-  @JoinColumn()
+  @JoinColumn({ name: 'temperature', referencedColumnName: 'food_id' })
   @OneToOne(() => Temperature)
   temperature: Temperature;
 }

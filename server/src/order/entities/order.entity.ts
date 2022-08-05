@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,12 +14,14 @@ export class Order {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
+  @JoinColumn({ name: 'order_history_id', referencedColumnName: 'id' })
   @ManyToOne(() => OrderHistory, (history) => history.id)
   order_history_id: number;
 
   @Column({ type: 'char', length: 30 })
   food_name: string;
 
+  @JoinColumn({ name: 'food_id', referencedColumnName: 'id' })
   @ManyToOne(() => Food, (food) => food.id)
   food_id: Food;
 

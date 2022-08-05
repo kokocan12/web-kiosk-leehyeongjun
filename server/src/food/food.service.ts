@@ -1,26 +1,47 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFoodDto } from './dto/create-food.dto';
-import { UpdateFoodDto } from './dto/update-food.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Food } from './entities/food.entity';
 
 @Injectable()
 export class FoodService {
-  create(createFoodDto: CreateFoodDto) {
-    return 'This action adds a new food';
-  }
+  constructor(
+    @InjectRepository(Food)
+    private categoryRepository: Repository<Food>,
+  ) {}
 
   findAll() {
-    return `This action returns all food`;
+    return this.categoryRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} food`;
-  }
+  async findFoodsByCategory(category?: number) {
+    const connection = this.categoryRepository.manager.connection;
+    const qr = connection.createQueryRunner();
 
-  update(id: number, updateFoodDto: UpdateFoodDto) {
-    return `This action updates a #${id} food`;
-  }
+    qr.startTransaction();
+    const builder = qr.manager.createQueryBuilder();
 
-  remove(id: number) {
-    return `This action removes a #${id} food`;
+    builder.from(Food, 'food').leftJoin('food.category', 'category');
+
+    if (category) builder.where('food.category = :category', { category });
+
+    const foods = await builder
+      .select([
+        'food.id as id',
+        'food.name as name',
+        'base_price as basePrice',
+        'category.id as categoryId',
+        'img_url as imgUrl',
+      ])
+      .getRawMany();
+
+    foods.forEach((food) => {
+      food.basePrice = +food.basePrice;
+      food.start = false;
+    });
+
+    qr.release();
+
+    return foods;
   }
 }
