@@ -1,14 +1,16 @@
 import { Order } from 'src/order/entities/order.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('ORDER_HISTORY_TB')
-export class OrderHistory {
+export class OrderHistory extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

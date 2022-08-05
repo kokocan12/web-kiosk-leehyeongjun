@@ -1,6 +1,7 @@
 import { Food } from 'src/food/entities/food.entity';
 import { OrderHistory } from './order-history.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,7 +11,7 @@ import {
 } from 'typeorm';
 
 @Entity('ORDER_ITEMS_TB')
-export class Order {
+export class Order extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -23,7 +24,7 @@ export class Order {
 
   @JoinColumn({ name: 'food_id', referencedColumnName: 'id' })
   @ManyToOne(() => Food, (food) => food.id)
-  food_id: Food;
+  food_id: number;
 
   @Column({ type: 'int' })
   unit: number;
