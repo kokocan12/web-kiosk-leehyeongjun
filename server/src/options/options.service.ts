@@ -20,8 +20,6 @@ export class OptionsService {
     const sizeData = await this.sizeRepo.find();
     const temperatureData = await this.tempRepo.find();
 
-    console.log(sizeData, temperatureData);
-
     sizeData.forEach((size) => {
       optionJson.size[size.food_id] = {
         s: size.small,

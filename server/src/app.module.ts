@@ -7,7 +7,6 @@ import { CategoriesModule } from './categories/categories.module';
 import { FoodModule } from './food/food.module';
 import { OptionsModule } from './options/options.module';
 import { OrderModule } from './order/order.module';
-import { OrderHistoryModule } from './order-history/order-history.module';
 
 @Module({
   imports: [
@@ -29,7 +28,6 @@ import { OrderHistoryModule } from './order-history/order-history.module';
     FoodModule,
     OptionsModule,
     OrderModule,
-    OrderHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,5 +1,5 @@
 import { Food } from 'src/food/entities/food.entity';
-import { OrderHistory } from 'src/order-history/entities/order-history.entity';
+import { OrderHistory } from './order-history.entity';
 import {
   Column,
   CreateDateColumn,
