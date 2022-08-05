@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOptionDto } from './dto/create-option.dto';
-import { UpdateOptionDto } from './dto/update-option.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Size, Temperature } from './entities/option.entity';
+import { SelectOptionInterface } from './interfaces/options.interface';
 
 @Injectable()
 export class OptionsService {
-  create(createOptionDto: CreateOptionDto) {
-    return 'This action adds a new option';
-  }
+  constructor(
+    @InjectRepository(Size) private sizeRepo: Repository<Size>,
+    @InjectRepository(Temperature) private tempRepo: Repository<Temperature>,
+  ) {}
 
-  findAll() {
-    return `This action returns all options`;
-  }
+  async getOptions(): Promise<SelectOptionInterface> {
+    const optionJson: SelectOptionInterface = {
+      size: {},
+      temperature: {},
+    };
 
-  findOne(id: number) {
-    return `This action returns a #${id} option`;
-  }
+    const sizeData = await this.sizeRepo.find();
+    const temperatureData = await this.tempRepo.find();
 
-  update(id: number, updateOptionDto: UpdateOptionDto) {
-    return `This action updates a #${id} option`;
-  }
+    console.log(sizeData, temperatureData);
 
-  remove(id: number) {
-    return `This action removes a #${id} option`;
+    sizeData.forEach((size) => {
+      optionJson.size[size.food_id] = {
+        s: size.small,
+        m: size.medium,
+        l: size.large,
+      };
+    });
+
+    temperatureData.forEach((temperature) => {
+      optionJson.temperature[temperature.food_id] = {
+        c: temperature.cool,
+        h: temperature.hot,
+      };
+    });
+
+    return optionJson;
   }
 }

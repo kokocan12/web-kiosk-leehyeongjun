@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
+import { CategoryInterface } from './interfaces/category.inteface';
 
 @Injectable()
 export class CategoriesService {
@@ -10,10 +11,10 @@ export class CategoriesService {
     private categoryRepository: Repository<Category>,
   ) {}
 
-  async findAll() {
+  async getCategories(): Promise<CategoryInterface> {
     const categories = await this.categoryRepository.find();
 
-    const categoriesJson = {
+    const categoriesJson: CategoryInterface = {
       categories: categories.map((item) => {
         return {
           id: item.id,

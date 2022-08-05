@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Food } from './entities/food.entity';
+import { SelectFoodInterface } from './interfaces/food.interface';
 
 @Injectable()
 export class FoodService {
@@ -14,7 +15,7 @@ export class FoodService {
     return this.categoryRepository.find();
   }
 
-  async findFoodsByCategory(category?: number) {
+  async findFoodsByCategory(category?: number): Promise<SelectFoodInterface[]> {
     const connection = this.categoryRepository.manager.connection;
     const qr = connection.createQueryRunner();
 
