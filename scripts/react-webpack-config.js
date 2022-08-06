@@ -7,6 +7,7 @@ const aliases = [
   "'@style': path.resolve(process.cwd(), 'src/styles')",
   "'@lib': path.resolve(process.cwd(), 'src/lib')",
   "'@pages': path.resolve(process.cwd(), 'src/pages')",
+  "'@hooks': path.resolve(process.cwd(), 'src/hooks')",
 ];
 const ins = aliases.join(',');
 const ROOT_PATH = process.cwd();

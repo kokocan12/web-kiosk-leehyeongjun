@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Routes, Route } from '@lib/router';
-import { Home, Menu, Receipt, PageNotFount } from '@pages';
+import { Home, Menu, Receipt, PageNotFound } from '@pages';
 import '@style/App.scss';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/receipt" element={<Receipt />} />
-          <Route path="*" element={<PageNotFount />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </div>
