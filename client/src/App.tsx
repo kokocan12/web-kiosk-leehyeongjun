@@ -5,8 +5,7 @@ import '@style/App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <h1>hi</h1>
+    <main className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -15,7 +14,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
-    </div>
+    </main>
   );
 }
 

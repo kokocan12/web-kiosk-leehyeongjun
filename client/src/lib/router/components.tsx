@@ -37,7 +37,7 @@ export function Router({ children = null }: RouterProps) {
 
   return (
     <NavigationContext.Provider value={{ navigate }}>
-      <LocationContext.Provider value={{ location }} children={children} />;
+      <LocationContext.Provider value={{ location }} children={children} />
     </NavigationContext.Provider>
   );
 }

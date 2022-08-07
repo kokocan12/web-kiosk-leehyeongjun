@@ -1,1 +1,55 @@
+@font-face {
+  font-family: 'DABANGU';
+  src: url('../static/font/dabangu.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GOTHIC';
+  src: url('../static/font/gothic.woff2') format('woff2');
+}
+
+@import './mixin';
 @import './color';
+
+/**
+ *  1rem : 16px.
+ */
+body {
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'GOTHIC';
+}
+
+.App {
+  background-color: $color-background;
+
+  @include darkmode {
+    background-color: $color-black;
+  }
+
+  width: 100vw;
+}
+
+.btn {
+  border: none;
+  background-color: $color-green;
+  padding: 10px 12px;
+  font-size: 1rem;
+  color: $color-beige;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.fade-in {
+  animation: fadeInKeyframes ease-in-out 1s;
+}
+
+@keyframes fadeInKeyframes {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

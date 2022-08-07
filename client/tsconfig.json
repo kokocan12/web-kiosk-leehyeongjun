@@ -6,6 +6,7 @@
       "@pages": ["src/pages/index.ts"],
       "@lib/*": ["src/lib/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@icons": ["src/static/icons/index.ts"],
       "@/*": ["src/*"]
     },
     "target": "es5",

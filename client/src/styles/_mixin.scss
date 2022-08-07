@@ -1,0 +1,18 @@
+@mixin darkmode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 37.5rem) {
+    @content;
+  }
+}
+
+@mixin no-drag {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
