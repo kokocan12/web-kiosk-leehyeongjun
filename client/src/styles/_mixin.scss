@@ -5,7 +5,7 @@
 }
 
 @mixin mobile {
-  @media (max-width: 37.5rem) {
+  @media (max-width: 50rem) {
     @content;
   }
 }
@@ -15,4 +15,14 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@mixin no-scroll {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -1,14 +1,12 @@
-import { useTodoList } from '@hooks/useTodoList';
+import { useRouterLoading } from '@lib/router';
+
+import { useEffect } from 'react';
 
 export const Receipt = () => {
-  const { data, revalidate, isLoading } = useTodoList();
+  const done = useRouterLoading();
 
-  return (
-    <ul>
-      {!isLoading &&
-        data?.map((item) => {
-          return <li key={item}>{item}</li>;
-        })}
-    </ul>
-  );
+  useEffect(() => {
+    done();
+  }, []);
+  return <ul></ul>;
 };

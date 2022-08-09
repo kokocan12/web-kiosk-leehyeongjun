@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { invariant } from '@lib/utils';
+import { invariant, queryToString, stringToQuery } from '@lib/utils';
 import {
   NavigationContext,
   LocationContext,
@@ -15,6 +15,8 @@ interface RouterProps {
 export interface Navigate {
   push: (options: { to: string }) => void;
   replace: (options: { to: string }) => void;
+  query: { [key: string]: string };
+  changeQuery: (query: { [key: string]: string }) => void;
 }
 
 export function Router({ children = null }: RouterProps) {
@@ -25,6 +27,8 @@ export function Router({ children = null }: RouterProps) {
   const currentRouteNumber = useRef(0);
   const direction = useRef(false);
   const lastURL = useRef<string>(location.pathname);
+  const isTransitioning = useRef(false);
+  const isPopState = useRef(false);
 
   const navigate: Navigate = {
     push: ({ to }) => {
@@ -34,6 +38,7 @@ export function Router({ children = null }: RouterProps) {
       currentRouteNumber.current ^= 1;
       direction.current = true;
       lastURL.current = to;
+      isPopState.current = false;
       reload();
     },
     replace: ({ to }) => {
@@ -43,16 +48,30 @@ export function Router({ children = null }: RouterProps) {
       currentRouteNumber.current ^= 1;
       direction.current = true;
       lastURL.current = to;
+      isPopState.current = false;
+      reload();
+    },
+    query: stringToQuery(location.search),
+    changeQuery: (query: { [key: string]: string }) => {
+      const currentPath = location.pathname;
+      window.history.replaceState(
+        null,
+        '',
+        `${currentPath}${queryToString(query)}`,
+      );
       reload();
     },
   };
 
   const onPopState = (evt: PopStateEvent) => {
-    prevPath.current = lastURL.current;
-    isLoading.current = true;
+    prevPath.current = '';
+    isTransitioning.current = false;
+    isPopState.current = true;
+    // isLoading.current = true;
+    // direction.current = false;
+    // lastURL.current = location.pathname;
     currentRouteNumber.current ^= 1;
-    direction.current = false;
-    lastURL.current = location.pathname;
+
     reload();
   };
 
@@ -74,6 +93,8 @@ export function Router({ children = null }: RouterProps) {
             prevPath,
             reload,
             direction,
+            isTransitioning,
+            isPopState,
           }}
         >
           {children}
@@ -90,10 +111,15 @@ interface RoutesProps {
 export function Routes({ children }: RoutesProps) {
   const location = useLocation();
 
-  const { isLoading, reload, prevPath, currentRouteNumber, direction } =
-    useRouteTransition();
-
-  const isTransitioning = useRef(false);
+  const {
+    isLoading,
+    reload,
+    prevPath,
+    currentRouteNumber,
+    direction,
+    isTransitioning,
+    isPopState,
+  } = useRouteTransition();
 
   const routes: [React.ReactElement[], React.ReactElement[]] = [[], []];
 
@@ -125,6 +151,8 @@ export function Routes({ children }: RoutesProps) {
     reload({});
   };
 
+  const TRANSITION_DURATION = '350ms';
+
   return (
     <LoadingContext.Provider value={{ done }}>
       {isLoading.current && (
@@ -143,7 +171,7 @@ export function Routes({ children }: RoutesProps) {
                     ? {
                         position: 'fixed',
                         left: '95%',
-                        transition: '1s',
+                        transition: TRANSITION_DURATION,
                         width: '100%',
                       }
                     : {
@@ -160,7 +188,11 @@ export function Routes({ children }: RoutesProps) {
                 key="wrap1"
                 style={
                   direction.current
-                    ? { position: 'fixed', width: '100%', transition: '1s' }
+                    ? {
+                        position: 'fixed',
+                        width: '100%',
+                        transition: TRANSITION_DURATION,
+                      }
                     : {
                         position: 'fixed',
                         width: '100%',
@@ -178,7 +210,11 @@ export function Routes({ children }: RoutesProps) {
                 key="wrap0"
                 style={
                   direction.current
-                    ? { position: 'fixed', width: '100%', transition: '1s' }
+                    ? {
+                        position: 'fixed',
+                        width: '100%',
+                        transition: TRANSITION_DURATION,
+                      }
                     : {
                         position: 'fixed',
                         width: '100%',
@@ -194,7 +230,11 @@ export function Routes({ children }: RoutesProps) {
                 key="wrap1"
                 style={
                   direction.current
-                    ? { position: 'fixed', left: '95%', transition: '1s' }
+                    ? {
+                        position: 'fixed',
+                        left: '95%',
+                        transition: TRANSITION_DURATION,
+                      }
                     : {
                         position: 'fixed',
                         zIndex: -1,
@@ -205,7 +245,7 @@ export function Routes({ children }: RoutesProps) {
                 {routes[1][0]}
               </div>,
             ]
-        : isTransitioning.current
+        : !isPopState.current && isTransitioning.current
         ? currentRouteNumber === 0
           ? [
               <div
@@ -214,7 +254,7 @@ export function Routes({ children }: RoutesProps) {
                 style={{
                   position: 'fixed',
                   left: '0%',
-                  transition: '1s',
+                  transition: TRANSITION_DURATION,
                   width: '100%',
                 }}
                 onTransitionEnd={onTransitionEnd}
@@ -224,7 +264,11 @@ export function Routes({ children }: RoutesProps) {
               <div
                 className="wrap1 fade-out"
                 key="wrap1"
-                style={{ position: 'fixed', width: '100%', transition: '1s' }}
+                style={{
+                  position: 'fixed',
+                  width: '100%',
+                  transition: TRANSITION_DURATION,
+                }}
                 onTransitionEnd={onTransitionEnd}
               >
                 {routes[1][0]}
@@ -234,7 +278,11 @@ export function Routes({ children }: RoutesProps) {
               <div
                 className="wrap0 fade-out"
                 key="wrap0"
-                style={{ position: 'fixed', width: '100%', transition: '1s' }}
+                style={{
+                  position: 'fixed',
+                  width: '100%',
+                  transition: TRANSITION_DURATION,
+                }}
                 onTransitionEnd={onTransitionEnd}
               >
                 {routes[0][0]}
@@ -246,7 +294,7 @@ export function Routes({ children }: RoutesProps) {
                   width: '100%',
                   position: 'fixed',
                   left: '0%',
-                  transition: '1s',
+                  transition: TRANSITION_DURATION,
                 }}
                 onTransitionEnd={onTransitionEnd}
               >

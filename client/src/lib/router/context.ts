@@ -21,6 +21,8 @@ interface TransitionContextTypes {
   reload: Function;
   currentRouteNumber: number;
   direction: React.MutableRefObject<boolean>;
+  isTransitioning: React.MutableRefObject<boolean>;
+  isPopState: React.MutableRefObject<boolean>;
 }
 
 export const TransitionContext = React.createContext<TransitionContextTypes>(

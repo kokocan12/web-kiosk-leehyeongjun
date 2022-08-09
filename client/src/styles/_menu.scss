@@ -1,0 +1,167 @@
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .banner-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: $color-background;
+
+    @include darkmode {
+      background-color: $color-black;
+    }
+
+    .banner {
+      @include no-drag;
+
+      height: 7rem;
+      display: flex;
+      align-items: center;
+      .icon-wrap {
+        height: 100%;
+        width: 7rem;
+        .icon-img {
+          width: 100%;
+          height: 100%;
+
+          filter: invert(75%) sepia(52%) saturate(5167%) hue-rotate(336deg)
+            brightness(102%) contrast(101%);
+
+          @include darkmode {
+            filter: invert(94%) sepia(5%) saturate(770%) hue-rotate(340deg)
+              brightness(102%) contrast(94%);
+          }
+        }
+        margin-left: 12px;
+        margin-right: 15px;
+      }
+
+      .text-wrap {
+        display: flex;
+        align-items: center;
+        .text {
+          color: $color-red;
+          font-weight: bold;
+          font-family: 'DABANGU';
+          font-size: 2.4rem;
+          &:first-child {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+
+    .category-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      .category-wrap {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 50rem;
+        height: 4rem;
+        border-bottom: 2px solid $color-border;
+        list-style-type: none;
+        overflow-x: auto;
+        @include no-scroll;
+
+        .category {
+          width: 6rem;
+          min-width: 6rem;
+          color: $color-gray;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &.active {
+            border-bottom: 5px solid $color-highlight-red;
+            color: $color-highlight-red;
+          }
+
+          .category-item {
+            color: inherit;
+            font-size: 1rem;
+            border: none;
+            background-color: transparent;
+            font-family: 'GOTHIC';
+            font-weight: bold;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .contents-wrap {
+    width: 50rem;
+
+    margin: 0 auto;
+    overflow: hidden;
+    padding-bottom: 10rem;
+
+    @include mobile {
+      width: 100%;
+      margin: 0;
+    }
+
+    .food-container {
+      width: 100%;
+      overflow: hidden;
+      .food-slide-wrap {
+        display: flex;
+        width: 100%;
+        left: -100%;
+        position: relative;
+        .food-list-wrap {
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
+          min-width: 100%;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+
+          .food-item {
+            position: relative;
+            color: $color-black;
+            margin: 1rem;
+            width: calc(50% - 2rem);
+            height: 15rem;
+            background-color: $color-background;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+            @include darkmode {
+              color: $color-white;
+              background-color: $color-black;
+            }
+
+            .food-img {
+              width: 60%;
+              border-radius: 50%;
+            }
+
+            .food-text {
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              font-size: 2.2rem;
+              font-family: 'DABANGU';
+            }
+          }
+        }
+      }
+    }
+  }
+}

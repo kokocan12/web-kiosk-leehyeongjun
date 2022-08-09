@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import { Logo } from '@icons';
-import { useNavigation, useRouterLoading } from '@lib/router';
 import { useHomeState } from '@hooks/useHomeState';
 
 export const Home = () => {
-  const navigation = useNavigation();
-  const { logoMoved, textVisible, isInitialLoaded } = useHomeState();
-  const done = useRouterLoading();
-  const onOrderClick = () => {
-    navigation.push({ to: '/menu' });
-  };
-
-  useEffect(() => {
-    console.log('home mount');
-    done();
-  }, []);
+  const { logoMoved, textVisible, isInitialLoaded, onOrderClick } =
+    useHomeState();
 
   return (
     <div className="home">
@@ -22,7 +11,7 @@ export const Home = () => {
         className={`logo-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
         style={
           logoMoved && !textVisible
-            ? { transform: 'translateY(-8.5rem)', transition: '1s' }
+            ? { transform: 'translateY(-8.5rem)', transition: '500ms' }
             : {}
         }
       >

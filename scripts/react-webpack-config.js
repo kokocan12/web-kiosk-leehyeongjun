@@ -10,6 +10,7 @@ const aliases = [
   "'@hooks': path.resolve(process.cwd(), 'src/hooks')",
   "'@icons': path.resolve(process.cwd(), 'src/static/icons')",
   "'@components': path.resolve(process.cwd(), 'src/components')",
+  "'@api': path.resolve(process.cwd(), 'src/api')",
 ];
 const ins = aliases.join(',');
 const ROOT_PATH = process.cwd();

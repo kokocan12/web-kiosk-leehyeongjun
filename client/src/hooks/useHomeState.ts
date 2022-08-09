@@ -1,7 +1,11 @@
 import { useSyncState } from '@lib/global-state';
-import { useEffect, useRef } from 'react';
+import { useNavigation, useRouterLoading } from '@lib/router';
+import { useEffect } from 'react';
 
 export const useHomeState = () => {
+  const navigation = useNavigation();
+  const done = useRouterLoading();
+
   const [textVisible, setTextVisible] = useSyncState(
     'home-text-visible',
     false,
@@ -13,26 +17,34 @@ export const useHomeState = () => {
     true,
   );
 
+  const onOrderClick = () => {
+    navigation.push({ to: '/menu' });
+  };
+
   useEffect(() => {
+    done();
     setTimeout(() => {
       setLogoMoved(true);
-    }, 1000);
+    }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (logoMoved) {
       setTimeout(() => {
         setTextVisible(true);
-      }, 1000);
+      }, 500);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoMoved]);
 
   useEffect(() => {
     if (textVisible) {
       setTimeout(() => {
         setIsInitialLoaded(false);
-      }, 1000);
+      }, 500);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textVisible]);
 
   return {
@@ -41,5 +53,6 @@ export const useHomeState = () => {
     logoMoved,
     setLogoMoved,
     isInitialLoaded,
+    onOrderClick,
   };
 };
