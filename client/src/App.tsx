@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Routes, Route } from '@lib/router';
 import { Home, Menu, Receipt, PageNotFound } from '@pages';
+import { AnimationLayer } from '@components';
 import '@style/App.scss';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route path="/receipt" element={<Receipt />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        {/* <AnimationLayer /> */}
       </Router>
     </main>
   );

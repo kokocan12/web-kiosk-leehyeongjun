@@ -8,12 +8,13 @@ function useSyncState<T>(key: string, initialState: T) {
   const [, setState] = useState({});
 
   const oldState = globalState.get(key);
-  const currentState = oldState
-    ? oldState
-    : (function () {
-        globalState.set(key, initialState);
-        return initialState;
-      })();
+  const currentState =
+    oldState !== undefined
+      ? oldState
+      : (function () {
+          globalState.set(key, initialState);
+          return initialState;
+        })();
 
   const state = currentState;
   const mutate = (newState: Partial<T>) => {

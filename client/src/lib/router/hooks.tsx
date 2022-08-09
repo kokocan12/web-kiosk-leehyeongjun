@@ -1,6 +1,11 @@
 import { invariant } from '@lib/utils';
 import { useContext } from 'react';
-import { LocationContext, NavigationContext } from './context';
+import {
+  LoadingContext,
+  LocationContext,
+  NavigationContext,
+  TransitionContext,
+} from './context';
 
 export const useLocation = () => {
   const context = useContext(LocationContext);
@@ -22,4 +27,25 @@ export const useNavigation = () => {
   );
 
   return context.navigate;
+};
+
+export const useRouteTransition = () => {
+  const context = useContext(TransitionContext);
+
+  invariant(
+    !context,
+    'Component is not child of <Router>, if you want to use useTransition hook, place component into <Router> ',
+  );
+
+  return context;
+};
+
+export const useRouterLoading = () => {
+  const context = useContext(LoadingContext);
+  invariant(
+    !context,
+    'Component is not child of <Router>, if you want to use useRouterLoading hook, place component into <Router> ',
+  );
+
+  return context.done;
 };

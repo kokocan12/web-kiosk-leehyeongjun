@@ -1,34 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Logo } from '@icons';
-import { useNavigation } from '@lib/router';
+import { useNavigation, useRouterLoading } from '@lib/router';
+import { useHomeState } from '@hooks/useHomeState';
 
 export const Home = () => {
   const navigation = useNavigation();
-  const [textVisible, setTextVisible] = useState(false);
-  const [logoMoved, setLogoMoved] = useState(false);
-
+  const { logoMoved, textVisible, isInitialLoaded } = useHomeState();
+  const done = useRouterLoading();
   const onOrderClick = () => {
     navigation.push({ to: '/menu' });
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setLogoMoved(true);
-    }, 1000);
+    console.log('home mount');
+    done();
   }, []);
 
-  useEffect(() => {
-    if (logoMoved) {
-      setTimeout(() => {
-        setTextVisible(true);
-      }, 1000);
-    }
-  }, [logoMoved]);
-
   return (
-    <div id="home">
+    <div className="home">
       <div
-        className="logo-wrap fade-in"
+        className={`logo-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
         style={
           logoMoved && !textVisible
             ? { transform: 'translateY(-8.5rem)', transition: '1s' }
@@ -38,11 +29,17 @@ export const Home = () => {
         <img className="logo" src={Logo} alt="logo" />
       </div>
       {textVisible && [
-        <div className="text-wrap fade-in">
+        <div
+          key="text-wrap"
+          className={`text-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
+        >
           <span className="logo-text">COFFEE</span>
           <span className="logo-text">KING</span>
         </div>,
-        <div className="button-wrap fade-in">
+        <div
+          key="button-wrap"
+          className={`button-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
+        >
           <button onClick={onOrderClick} className="btn">
             주문하기
           </button>

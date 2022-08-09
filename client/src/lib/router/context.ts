@@ -14,3 +14,21 @@ interface LocationContextTypes {
 }
 
 export const LocationContext = React.createContext<LocationContextTypes>(null!);
+
+interface TransitionContextTypes {
+  prevPath: React.MutableRefObject<string>;
+  isLoading: React.MutableRefObject<boolean>;
+  reload: Function;
+  currentRouteNumber: number;
+  direction: React.MutableRefObject<boolean>;
+}
+
+export const TransitionContext = React.createContext<TransitionContextTypes>(
+  null!,
+);
+
+interface LoadingContextTypes {
+  done: Function;
+}
+
+export const LoadingContext = React.createContext<LoadingContextTypes>(null!);
