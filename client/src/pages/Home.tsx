@@ -11,7 +11,7 @@ export const Home = () => {
         className={`logo-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
         style={
           logoMoved && !textVisible
-            ? { transform: 'translateY(-8.5rem)', transition: '500ms' }
+            ? { transform: 'translateY(-5.5rem)', transition: '500ms' }
             : {}
         }
       >

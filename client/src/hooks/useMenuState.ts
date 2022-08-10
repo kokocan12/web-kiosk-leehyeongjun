@@ -1,6 +1,6 @@
 import { useNavigation, useRouterLoading } from '@lib/router';
 import { getSideItems } from '@lib/utils';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useCategories } from './useCategories';
 import { useFoods } from './useFoods';
 
@@ -12,10 +12,7 @@ export const useMenuState = () => {
   const { isLoading: foodLoading, data: foods } = useFoods();
   const done = useRouterLoading();
 
-  const onCategoryClick = (categoryId: number) => {
-    query['category'] = categoryId + '';
-    changeQuery(query);
-  };
+  const categoryRef = useRef<HTMLUListElement>(null);
 
   const [leftFoods, middleFoods, rightFoods] = useMemo(() => {
     if (category && categories && foods) {
@@ -25,6 +22,11 @@ export const useMenuState = () => {
     return [[], [], []];
   }, [category, categories, foods]);
 
+  const onCategoryClick = (categoryId: number) => {
+    query['category'] = categoryId + '';
+    changeQuery(query);
+  };
+
   useEffect(() => {
     if (!categoryLoading && !foodLoading) {
       if (!category) onCategoryClick(1);
@@ -32,6 +34,18 @@ export const useMenuState = () => {
       done();
     }
   }, [categoryLoading, foodLoading]);
+
+  useEffect(() => {
+    const MENU_WIDTH = 96;
+    const clientWidth =
+      document.body.clientWidth >= 800 ? 800 : document.body.clientWidth;
+
+    categoryRef.current?.scrollTo({
+      left:
+        (-1 * clientWidth) / 2 + MENU_WIDTH * (+category - 1) + MENU_WIDTH / 2,
+      behavior: 'smooth',
+    });
+  }, [category, categoryRef.current]);
 
   return {
     categories,
@@ -41,5 +55,6 @@ export const useMenuState = () => {
     foods,
     onCategoryClick,
     category,
+    categoryRef,
   };
 };
