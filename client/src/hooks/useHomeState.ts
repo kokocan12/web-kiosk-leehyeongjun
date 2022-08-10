@@ -3,6 +3,8 @@ import { useNavigation, useRouterLoading } from '@lib/router';
 import { useEffect } from 'react';
 
 export const useHomeState = () => {
+  const ANIMATION_DELAY = 500;
+
   const navigation = useNavigation();
   const done = useRouterLoading();
 
@@ -25,7 +27,7 @@ export const useHomeState = () => {
     done();
     setTimeout(() => {
       setLogoMoved(true);
-    }, 500);
+    }, ANIMATION_DELAY);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,7 +35,7 @@ export const useHomeState = () => {
     if (logoMoved) {
       setTimeout(() => {
         setTextVisible(true);
-      }, 500);
+      }, ANIMATION_DELAY);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoMoved]);
@@ -42,12 +44,13 @@ export const useHomeState = () => {
     if (textVisible) {
       setTimeout(() => {
         setIsInitialLoaded(false);
-      }, 500);
+      }, ANIMATION_DELAY);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textVisible]);
 
   return {
+    ANIMATION_DELAY,
     textVisible,
     setTextVisible,
     logoMoved,

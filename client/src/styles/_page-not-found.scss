@@ -1,0 +1,16 @@
+.page-not-found {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  .not-found-text {
+    font-size: 3rem;
+    font-family: 'DABANGU';
+  }
+
+  .home-btn {
+    width: 50%;
+    font-size: 2rem;
+  }
+}

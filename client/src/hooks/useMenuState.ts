@@ -13,6 +13,7 @@ export const useMenuState = () => {
   const done = useRouterLoading();
 
   const categoryRef = useRef<HTMLUListElement>(null);
+  const scrollToDebouncedRef = useRef<any>(null!);
 
   const [leftFoods, middleFoods, rightFoods] = useMemo(() => {
     if (category && categories && foods) {
@@ -36,15 +37,25 @@ export const useMenuState = () => {
   }, [categoryLoading, foodLoading]);
 
   useEffect(() => {
-    const MENU_WIDTH = 96;
-    const clientWidth =
-      document.body.clientWidth >= 800 ? 800 : document.body.clientWidth;
+    if (categoryRef.current) {
+      const MENU_WIDTH = 96;
+      const clientWidth =
+        document.body.clientWidth >= 800 ? 800 : document.body.clientWidth;
 
-    categoryRef.current?.scrollTo({
-      left:
-        (-1 * clientWidth) / 2 + MENU_WIDTH * (+category - 1) + MENU_WIDTH / 2,
-      behavior: 'smooth',
-    });
+      scrollToDebouncedRef.current = setTimeout(() => {
+        categoryRef.current?.scrollTo({
+          left:
+            (-1 * clientWidth) / 2 +
+            MENU_WIDTH * (+category - 1) +
+            MENU_WIDTH / 2,
+          behavior: 'smooth',
+        });
+      }, 50);
+    }
+
+    return () => {
+      clearTimeout(scrollToDebouncedRef.current);
+    };
   }, [category, categoryRef.current]);
 
   return {

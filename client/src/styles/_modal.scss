@@ -1,0 +1,131 @@
+.modal-layer {
+  position: fixed;
+  left: -10000px;
+  width: 0;
+  height: 0;
+  z-index: 1000;
+}
+
+.dim {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+}
+
+.order-modal-container {
+  display: block;
+  position: fixed;
+  width: 40rem;
+  height: max-content;
+  padding-bottom: 5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: 40px;
+  background-color: $color-white;
+
+  @include mobile {
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    transform: translate(0%);
+    border-radius: 40px 40px 0 0;
+  }
+
+  .head-text {
+    text-align: center;
+  }
+
+  .img-wrap {
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+
+    .food-img {
+      width: 20rem;
+      height: 20rem;
+      border-radius: 20px;
+    }
+  }
+
+  .button-wrap {
+    .button-guide-text {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .size-wrap,
+    .temperature-wrap {
+      margin-top: 30px;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      input[type='radio'] {
+        display: none;
+      }
+
+      label {
+        background-color: $color-light-gray;
+        color: $color-black;
+        width: max-content;
+        min-width: 4rem;
+        text-align: center;
+        padding: 1rem;
+
+        margin-right: 8px;
+      }
+
+      input:checked + label {
+        background-color: $color-green;
+      }
+    }
+
+    .count-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 25px;
+      .count-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0;
+        border: none;
+        margin: 0;
+        background-color: transparent;
+
+        .count-icon-img {
+          width: inherit;
+          height: inherit;
+        }
+      }
+
+      .count-text {
+        font-family: 'DABANGU';
+        font-size: 1.5rem;
+        margin: 0 10px;
+      }
+    }
+
+    .save-button-wrap {
+      width: 100%;
+      text-align: center;
+      margin-top: 4rem;
+
+      .save-btn {
+        width: 20rem;
+        height: 3rem;
+        font-size: 1rem;
+        font-family: 'DABANGU';
+        background-color: $color-red;
+      }
+    }
+  }
+}

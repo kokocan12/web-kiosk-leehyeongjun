@@ -1,8 +1,7 @@
 import { CategoryTypes } from '@hooks/useCategories';
+import { useFoodListSlider } from '@hooks/useFoodListSlider';
 import { FoodTypes } from '@hooks/useFoods';
 import { useNavigation } from '@lib/router';
-import { getSideCategories } from '@lib/utils';
-import React, { useRef, useState } from 'react';
 
 type FoodListPropTypes = {
   leftFoods: FoodTypes[];
@@ -19,79 +18,20 @@ export const FoodList = ({
   currentCategory,
   categories,
 }: FoodListPropTypes) => {
-  const DIFF_MAX = Math.min(document.body.clientWidth, 800);
-  const touchStartX = useRef<number>(0);
-  const touchStartTimestamp = useRef<number>(0);
-  const transition = useRef(false);
-  const [moveX, setMoveX] = useState(0);
-  const { changeQuery, query } = useNavigation();
+  const {
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    moveX,
+    transition,
+    onTransitionEnd,
+  } = useFoodListSlider(categories, currentCategory);
 
-  const onTouchStart = (evt: React.TouchEvent) => {
-    touchStartX.current = evt.touches[0].clientX;
-    transition.current = false;
-    touchStartTimestamp.current = new Date().valueOf();
-    setBodyOverflowYHidden(true);
-  };
+  const { changeHash, hash } = useNavigation();
 
-  const onTouchMove = (evt: React.TouchEvent) => {
-    const currentX = evt.touches[0].clientX;
-    const diff = currentX - touchStartX.current;
-
-    if (diff > 0 && Math.abs(diff) > DIFF_MAX) {
-      setMoveX(DIFF_MAX);
-    } else if (diff < 0 && Math.abs(diff) > DIFF_MAX) {
-      setMoveX(-1 * DIFF_MAX);
-    } else {
-      setMoveX(diff);
-    }
-  };
-
-  const onTouchEnd = () => {
-    const timestamp = new Date().valueOf();
-    transition.current = true;
-    const MAX_INTERVAL = 300;
-    const diff = timestamp - touchStartTimestamp.current;
-
-    if (diff <= MAX_INTERVAL) {
-      if (moveX > 0) {
-        setMoveX(DIFF_MAX);
-      } else if (moveX < 0) {
-        setMoveX(-1 * DIFF_MAX);
-      }
-      return;
-    }
-
-    if (Math.abs(moveX) > DIFF_MAX / 2) {
-      moveX > 0 ? setMoveX(DIFF_MAX) : setMoveX(-1 * DIFF_MAX);
-    } else {
-      setMoveX(0);
-    }
-  };
-
-  const onTransitionEnd = () => {
-    const [leftCategory, rightCategory] = getSideCategories(
-      categories,
-      +currentCategory,
-    );
-
-    if (moveX >= DIFF_MAX) {
-      query.category = leftCategory + '';
-    } else if (moveX <= -1 * DIFF_MAX) {
-      query.category = rightCategory + '';
-    }
-
-    setBodyOverflowYHidden(false);
-    transition.current = false;
-    changeQuery(query);
-    setMoveX(0);
-  };
-
-  const setBodyOverflowYHidden = (hidden: boolean) => {
-    if (hidden) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = '';
-    }
+  const onClickFood = (foodId: number) => {
+    hash.order = foodId + '';
+    changeHash(hash);
   };
 
   return (
@@ -126,7 +66,11 @@ export const FoodList = ({
         <ul className="food-list-wrap middle">
           {middleFoods.map((foodItem) => {
             return (
-              <li className="food-item" key={foodItem.id}>
+              <li
+                onClick={onClickFood.bind(null, foodItem.id)}
+                className="food-item"
+                key={foodItem.id}
+              >
                 <span className="food-text">{foodItem.name}</span>
                 <img
                   className="food-img"

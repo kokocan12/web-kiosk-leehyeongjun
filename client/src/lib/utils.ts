@@ -45,6 +45,43 @@ export function queryToString(query: { [key: string]: string }) {
   return string ? string.slice(0, string.length - 1) : '';
 }
 
+export function stringToHashObj(str: string): {
+  [key: string]: string;
+} {
+  const stringArray: string[] = str.replace('#', '').split('&');
+
+  const dict: {
+    [key: string]: string;
+  } = {};
+
+  for (let i = 0; i < stringArray.length; i++) {
+    const [key, val] = stringArray[i].split('=');
+
+    if (val) dict[key] = val;
+  }
+
+  return dict;
+}
+
+export function hashObjToString(hash: { [key: string]: string }) {
+  if (!hash) return '';
+
+  let string = '';
+
+  const keys = Object.keys(hash);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+
+    if (hash[key]) {
+      if (i === 0) string += '#';
+
+      string += `${key}=${hash[key]}&`;
+    }
+  }
+
+  return string ? string.slice(0, string.length - 1) : '';
+}
+
 export function getSideCategories(
   categories: CategoryTypes[],
   currentCategory: number,
@@ -84,3 +121,16 @@ export function getSideItems(
 
   return [leftFoods, middleFoods, rightFoods];
 }
+
+export const setBodyOverflowYHidden = (hidden: boolean) => {
+  if (hidden) {
+    document.body.style.overflowY = 'hidden';
+  } else {
+    document.body.style.overflowY = '';
+  }
+};
+
+export const comma = (num: number) => {
+  if (isNaN(+num)) return '';
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

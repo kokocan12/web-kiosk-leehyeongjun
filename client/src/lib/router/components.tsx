@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { invariant, queryToString, stringToQuery } from '@lib/utils';
+import {
+  hashObjToString,
+  invariant,
+  queryToString,
+  stringToHashObj,
+  stringToQuery,
+} from '@lib/utils';
 import {
   NavigationContext,
   LocationContext,
@@ -17,6 +23,8 @@ export interface Navigate {
   replace: (options: { to: string }) => void;
   query: { [key: string]: string };
   changeQuery: (query: { [key: string]: string }) => void;
+  hash: { [key: string]: string };
+  changeHash: (hash: { [key: string]: string }) => void;
 }
 
 export function Router({ children = null }: RouterProps) {
@@ -52,12 +60,22 @@ export function Router({ children = null }: RouterProps) {
       reload();
     },
     query: stringToQuery(location.search),
-    changeQuery: (query: { [key: string]: string }) => {
+    changeQuery: (query) => {
       const currentPath = location.pathname;
       window.history.replaceState(
         null,
         '',
         `${currentPath}${queryToString(query)}`,
+      );
+      reload();
+    },
+    hash: stringToHashObj(location.hash),
+    changeHash(hash) {
+      const currentPath = location.pathname;
+      window.history.pushState(
+        null,
+        '',
+        `${currentPath}${location.search}${hashObjToString(hash)}`,
       );
       reload();
     },
@@ -67,10 +85,6 @@ export function Router({ children = null }: RouterProps) {
     prevPath.current = '';
     isTransitioning.current = false;
     isPopState.current = true;
-    // isLoading.current = true;
-    // direction.current = false;
-    // lastURL.current = location.pathname;
-    currentRouteNumber.current ^= 1;
 
     reload();
   };

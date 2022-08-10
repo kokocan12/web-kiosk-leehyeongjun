@@ -3,6 +3,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 
 const globalState = new Map();
 const subscribers = new Map();
+const fetchDebouncer = new Map();
 
 function useSyncState<T>(key: string, initialState: T) {
   const [, setState] = useState({});
@@ -59,8 +60,8 @@ function useAsyncState<T>(
   fetcher: (key: string) => Promise<T>,
 ): [isLoading: boolean, data: T | undefined, revalidate: () => void] {
   const [, setState] = useState({});
-  const data = useRef(globalState.get(key));
-  const isLoading = useRef(data.current === undefined);
+  let data = globalState.get(key);
+  let isLoading = data === undefined;
 
   const revalidate = () => {
     globalState.delete(key);
@@ -68,13 +69,14 @@ function useAsyncState<T>(
   };
 
   const fetchData = () => {
-    isLoading.current = true;
-    fetcher(key).then((res) => {
-      isLoading.current = false;
-      globalState.set(key, res);
-      data.current = res;
-      notify();
+    clearTimeout(fetchDebouncer.get(key));
+    const timer = setTimeout(() => {
+      fetcher(key).then((res) => {
+        globalState.set(key, res);
+        notify();
+      });
     });
+    fetchDebouncer.set(key, timer);
   };
 
   const notify = () => {
@@ -84,13 +86,12 @@ function useAsyncState<T>(
 
   useLayoutEffect(() => {
     let subs = subscribers.get(key);
-
     if (!subs) {
       subs = subscribers.set(key, []).get(key);
     }
 
     subs.push(setState);
-    if (!data.current) fetchData();
+    if (!data) fetchData();
 
     return () => {
       subscribers.set(
@@ -102,7 +103,7 @@ function useAsyncState<T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return [isLoading.current, data.current, revalidate];
+  return [isLoading, data, revalidate];
 }
 
 export { useSyncState, useAsyncState };

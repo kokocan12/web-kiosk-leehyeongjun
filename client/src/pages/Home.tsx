@@ -2,8 +2,13 @@ import { Logo } from '@icons';
 import { useHomeState } from '@hooks/useHomeState';
 
 export const Home = () => {
-  const { logoMoved, textVisible, isInitialLoaded, onOrderClick } =
-    useHomeState();
+  const {
+    logoMoved,
+    textVisible,
+    isInitialLoaded,
+    onOrderClick,
+    ANIMATION_DELAY,
+  } = useHomeState();
 
   return (
     <div className="home">
@@ -11,7 +16,10 @@ export const Home = () => {
         className={`logo-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
         style={
           logoMoved && !textVisible
-            ? { transform: 'translateY(-5.5rem)', transition: '500ms' }
+            ? {
+                transform: 'translateY(-5.5rem)',
+                transition: `${ANIMATION_DELAY}ms`,
+              }
             : {}
         }
       >

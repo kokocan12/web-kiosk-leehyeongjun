@@ -66,3 +66,17 @@ body {
     opacity: 0;
   }
 }
+
+.slide-up {
+  animation: slideUpKeyframes ease-in-out 500ms forwards;
+}
+
+@keyframes slideUpKeyframes {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0%);
+  }
+}
