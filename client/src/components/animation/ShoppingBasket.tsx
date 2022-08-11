@@ -3,10 +3,10 @@ import { HotIcon, ShoppingCloseIcon, SnowIcon } from '@icons';
 import { useLocation, useNavigation } from '@lib/router';
 import { isEmptyObject } from '@lib/utils';
 
-const activeMenus = ['/menu'];
+const activeMenus = ['/menu', '/payment'];
 
 export const ShoppingBasket = () => {
-  const { hash } = useNavigation();
+  const { hash, push } = useNavigation();
   const location = useLocation();
 
   const { restCount, orders, setOrders, itemListRef } =
@@ -26,6 +26,10 @@ export const ShoppingBasket = () => {
     setOrders(newOrders);
   };
 
+  const onClickPayment = () => {
+    push({ to: '/payment' });
+  };
+
   if (
     hash.order ||
     activeMenus.includes(location.pathname) === false ||
@@ -37,7 +41,6 @@ export const ShoppingBasket = () => {
     <div className="shopping-basket-wrap fade-in">
       <div className="food-list-wrap" ref={itemListRef}>
         {Object.entries(orders).map(([key, val]) => {
-          console.log(orders);
           return (
             <div key={key} className="food-item-wrap">
               <img className="food-item-img" src={val.imgUrl} alt="img-url" />
@@ -77,7 +80,13 @@ export const ShoppingBasket = () => {
         <button className="btn cancel-btn" onClick={onCancelClick}>
           전체취소
         </button>
-        <button className="btn payment-btn">결제하기</button>
+        <button
+          className="btn payment-btn"
+          disabled={location.pathname !== '/menu' ? true : false}
+          onClick={onClickPayment}
+        >
+          결제하기
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,43 @@
+.payment {
+  .payment-methods-wrap {
+    height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+      flex-direction: column;
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+    }
+    .payment-wrap {
+      width: 20rem;
+      margin-right: 4rem;
+      cursor: pointer;
+      transform: translateY(-4rem);
+
+      @include mobile {
+        width: calc(100% - 7rem);
+        margin-bottom: 1.3rem;
+        margin-right: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .payment-icon {
+      width: inherit;
+    }
+
+    .payment-text {
+      font-family: 'DABANGU';
+      font-size: 2rem;
+      display: block;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { useMenuState } from '@hooks/useMenuState';
-import { Banner, FoodList } from '@components';
+import { Header, FoodList } from '@components';
 
 export const Menu = () => {
   const {
@@ -14,7 +14,7 @@ export const Menu = () => {
 
   return (
     <div className="menu">
-      <Banner
+      <Header
         categoryRef={categoryRef}
         category={category}
         categories={categories!}

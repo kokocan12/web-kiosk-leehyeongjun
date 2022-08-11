@@ -7,6 +7,8 @@ import HomeIcon from './home-icon.svg';
 import ShoppingCloseIcon from './shopping-close-icon.jpg';
 import SnowIcon from './snow-icon.jpg';
 import HotIcon from './hot-icon.jpg';
+import CashIcon from './cash-icon.png';
+import CardIcon from './card-icon.png';
 
 export {
   Logo,
@@ -18,4 +20,6 @@ export {
   ShoppingCloseIcon,
   SnowIcon,
   HotIcon,
+  CardIcon,
+  CashIcon,
 };

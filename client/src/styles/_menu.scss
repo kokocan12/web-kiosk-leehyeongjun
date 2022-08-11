@@ -17,60 +17,6 @@
       background-color: $color-black;
     }
 
-    .banner {
-      @include no-drag;
-
-      height: 4rem;
-      display: flex;
-      align-items: center;
-
-      .icon-wrap {
-        width: 4rem;
-        display: flex;
-        align-items: center;
-        .icon-img {
-          width: 4rem;
-          height: 4rem;
-
-          filter: invert(75%) sepia(52%) saturate(5167%) hue-rotate(336deg)
-            brightness(102%) contrast(101%);
-
-          @include darkmode {
-            filter: invert(94%) sepia(5%) saturate(770%) hue-rotate(340deg)
-              brightness(102%) contrast(94%);
-          }
-        }
-        margin-left: 12px;
-        margin-right: 15px;
-      }
-
-      .text-wrap {
-        display: flex;
-        align-items: center;
-        .text {
-          color: $color-red;
-          font-weight: bold;
-          font-family: 'DABANGU';
-          font-size: 1.5rem;
-          &:first-child {
-            margin-right: 10px;
-          }
-        }
-      }
-
-      .home-icon-wrap {
-        cursor: pointer;
-        margin-left: auto;
-        margin-right: 2rem;
-        background-color: transparent;
-        border: none;
-        .home-icon-img {
-          width: 2.5rem;
-          height: 2.5rem;
-        }
-      }
-    }
-
     .category-container {
       width: 100%;
 

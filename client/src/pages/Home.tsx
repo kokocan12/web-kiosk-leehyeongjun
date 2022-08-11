@@ -1,5 +1,6 @@
 import { Logo } from '@icons';
 import { useHomeState } from '@hooks/useHomeState';
+import { useLocation } from '@lib/router';
 
 export const Home = () => {
   const {
@@ -9,6 +10,8 @@ export const Home = () => {
     onOrderClick,
     ANIMATION_DELAY,
   } = useHomeState();
+
+  const location = useLocation();
 
   return (
     <div className="home">
@@ -37,7 +40,11 @@ export const Home = () => {
           key="button-wrap"
           className={`button-wrap ${isInitialLoaded ? 'fade-in' : ''}`}
         >
-          <button onClick={onOrderClick} className="btn">
+          <button
+            onClick={onOrderClick}
+            disabled={location.pathname !== '/' ? true : false}
+            className="btn"
+          >
             주문하기
           </button>
         </div>,

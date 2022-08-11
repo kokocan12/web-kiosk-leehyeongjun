@@ -1,6 +1,7 @@
 import AnimationLayer from './animation';
 import ModalLayer from './modal';
-import { Banner } from './menu/Banner';
+import { Header } from './menu/Header';
 import { FoodList } from './menu/FoodList';
+import { LogoHeader } from './common/LogoHeader';
 
-export { ModalLayer, AnimationLayer, Banner, FoodList };
+export { ModalLayer, AnimationLayer, Header, FoodList, LogoHeader };
