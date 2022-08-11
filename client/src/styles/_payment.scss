@@ -38,6 +38,10 @@
       font-family: 'DABANGU';
       font-size: 2rem;
       display: block;
+
+      @include darkmode {
+        color: $color-white;
+      }
     }
   }
 }

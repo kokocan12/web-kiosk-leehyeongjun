@@ -9,7 +9,7 @@ interface OrderHistoryDataInterface {
   id: number;
   order_num: number;
   total_price: string;
-  payment: 'CARD';
+  payment: string;
 }
 
 interface OrderDataInterface {

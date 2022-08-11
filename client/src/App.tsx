@@ -6,6 +6,8 @@ import {
   PageNotFound,
   Payment,
   PaymentCard,
+  PaymentCash,
+  PaymentCashInsert,
 } from '@pages';
 import { AnimationLayer, ModalLayer } from '@components';
 import '@style/App.scss';
@@ -19,6 +21,8 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment/card" element={<PaymentCard />} />
+          <Route path="/payment/cash" element={<PaymentCash />} />
+          <Route path="/payment/cash-insert" element={<PaymentCashInsert />} />
           <Route path="/receipt" element={<Receipt />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

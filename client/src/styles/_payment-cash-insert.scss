@@ -1,0 +1,35 @@
+.payment-cash-insert {
+  display: flex;
+  flex-direction: column;
+
+  .payment-cash-insert-body {
+    position: relative;
+    background-color: $color-white;
+    margin: 4rem auto;
+    border-radius: 20px;
+    width: 40rem;
+    height: 40rem;
+    padding: 1.3rem;
+
+    @include mobile {
+      width: 80%;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .btn {
+      width: 100%;
+      height: 4rem;
+      font-family: 'DABANGU';
+
+      font-size: 1.4rem;
+      color: $color-white;
+
+      &.payment-btn {
+        background-color: $color-highlight-red;
+      }
+    }
+  }
+}

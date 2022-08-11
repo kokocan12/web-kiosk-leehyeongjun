@@ -11,7 +11,13 @@ export const Payment = () => {
   const { orders } = useShoppingBaksetOrders();
 
   const onClickPayment = (type: string) => {
-    navigation.replace({ to: `/payment/${type}` });
+    if (type === 'card') {
+      navigation.replace({ to: `/payment/${type}` });
+    }
+
+    if (type === 'cash-insert') {
+      navigation.push({ to: `/payment/${type}` });
+    }
   };
 
   useEffect(() => {
@@ -37,7 +43,7 @@ export const Payment = () => {
           <span className="payment-text">카드결제</span>
         </button>
         <button
-          onClick={onClickPayment.bind(null, 'cash')}
+          onClick={onClickPayment.bind(null, 'cash-insert')}
           className="payment-wrap"
         >
           <img className="payment-icon" src={CashIcon} alt="cash-icon" />
