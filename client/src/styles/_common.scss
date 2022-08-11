@@ -136,6 +136,11 @@ body {
     .home-icon-img {
       width: 2.5rem;
       height: 2.5rem;
+
+      @include darkmode {
+        filter: invert(96%) sepia(100%) saturate(0%) hue-rotate(95deg)
+          brightness(104%) contrast(104%);
+      }
     }
   }
 }
