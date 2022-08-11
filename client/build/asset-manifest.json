@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a0eca174.css",
+    "main.js": "/static/js/main.a1a7406b.js",
+    "static/media/banner.jpeg": "/static/media/banner.ca3ea8730cf3fc77808f.jpeg",
+    "static/media/gothic.woff2": "/static/media/gothic.c156176032e7f3bdd352.woff2",
+    "static/media/dabangu.woff2": "/static/media/dabangu.9e770e42b87d1589a6f8.woff2",
+    "static/media/hot-icon.jpg": "/static/media/hot-icon.3f9dd47fa4bfd2bb4565.jpg",
+    "static/media/snow-icon.jpg": "/static/media/snow-icon.893211e828186cfef60f.jpg",
+    "static/media/card-icon.png": "/static/media/card-icon.80e2211dc15bac72aaad.png",
+    "static/media/shopping-close-icon.jpg": "/static/media/shopping-close-icon.62372c1daaca531f4820.jpg",
+    "static/media/cash-icon.png": "/static/media/cash-icon.52671d94a8145b0f153e.png",
+    "static/media/home-icon.svg": "/static/media/home-icon.ffb8a1f8e6dd39ff94a2a1597a0455c8.svg",
+    "static/media/close-icon.svg": "/static/media/close-icon.f5457199865cf8c177ab311219383786.svg",
+    "static/media/plus-icon.svg": "/static/media/plus-icon.2137f6d6383c6924e28dee37d3737eab.svg",
+    "static/media/logo.svg": "/static/media/logo.fa69c429d5ddba887a131cb9ca1b0af7.svg",
+    "static/media/minus-icon.svg": "/static/media/minus-icon.8a6244c5dde68faee6263267f1830c60.svg",
+    "index.html": "/index.html",
+    "main.a0eca174.css.map": "/static/css/main.a0eca174.css.map",
+    "main.a1a7406b.js.map": "/static/js/main.a1a7406b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a0eca174.css",
+    "static/js/main.a1a7406b.js"
+  ]
+}
