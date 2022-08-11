@@ -1,0 +1,37 @@
+.receipt {
+  display: flex;
+  flex-direction: column;
+
+  .receipt-body {
+    position: relative;
+    background-color: $color-white;
+    margin: 4rem auto;
+    border-radius: 20px;
+    width: 40rem;
+    height: 40rem;
+
+    @include mobile {
+      width: 80%;
+    }
+
+    .complete-text {
+      text-align: center;
+    }
+
+    .order-text {
+      text-align: center;
+      font-size: 1.7rem;
+    }
+
+    .detail-wrap {
+      padding-left: 1.3rem;
+    }
+
+    .timer-text {
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      padding-left: 1.3rem;
+    }
+  }
+}

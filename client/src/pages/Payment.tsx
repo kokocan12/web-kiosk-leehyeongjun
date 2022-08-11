@@ -11,7 +11,7 @@ export const Payment = () => {
   const { orders } = useShoppingBaksetOrders();
 
   const onClickPayment = (type: string) => {
-    navigation.push({ to: `/payment/${type}` });
+    navigation.replace({ to: `/payment/${type}` });
   };
 
   useEffect(() => {

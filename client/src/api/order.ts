@@ -9,4 +9,8 @@ export const order = {
       date: new Date(),
     });
   },
+
+  getOrder(orderId: number) {
+    return axios.get(`/order/${orderId}`);
+  },
 };

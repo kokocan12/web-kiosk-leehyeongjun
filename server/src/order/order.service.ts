@@ -11,6 +11,8 @@ export class OrderService {
   constructor(
     @InjectRepository(OrderHistory)
     private readonly orderHistoryRepo: Repository<OrderHistory>,
+    @InjectRepository(Order)
+    private readonly orderRepo: Repository<Order>,
   ) {}
   async createOrder(order: CreateOrderDto) {
     const lastOrderHistoryAtYesterday = await this.orderHistoryRepo.find({
@@ -52,6 +54,24 @@ export class OrderService {
       order.order_history_id = orderHistory.id;
       order.save();
     });
+
+    return { orderHistory, orders };
+  }
+
+  async getOrderDetail(orderId: number) {
+    const orderHistoryPromise = this.orderHistoryRepo.findOne({
+      where: { id: orderId },
+    });
+    const builder = this.orderHistoryRepo.manager.createQueryBuilder();
+    const historyPromise = builder
+      .from(Order, 'order')
+      .where('order.order_history_id = :orderId', { orderId })
+      .getRawMany();
+
+    const [orderHistory, orders] = await Promise.all([
+      orderHistoryPromise,
+      historyPromise,
+    ]);
 
     return { orderHistory, orders };
   }
