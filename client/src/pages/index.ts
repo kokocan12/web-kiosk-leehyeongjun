@@ -3,5 +3,6 @@ import { Menu } from './Menu';
 import { Receipt } from './Receipt';
 import { PageNotFound } from './PageNotFound';
 import { Payment } from './Payment';
+import { PaymentCard } from './PaymentCard';
 
-export { Home, Menu, Receipt, PageNotFound, Payment };
+export { Home, Menu, Receipt, PageNotFound, Payment, PaymentCard };
