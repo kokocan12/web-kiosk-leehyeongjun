@@ -25,7 +25,6 @@ yarn-error.log*
 client/.env
 
 # compiled output
-server/dist
 server/node_modules
 
 # Logs
