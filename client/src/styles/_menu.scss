@@ -3,6 +3,10 @@
   display: flex;
   flex-direction: column;
 
+  @include ios {
+    height: -webkit-fill-available;
+  }
+
   .banner-wrap {
     position: sticky;
     top: 0;
@@ -16,7 +20,7 @@
     .banner {
       @include no-drag;
 
-      height: 7rem;
+      height: 4rem;
       display: flex;
       align-items: center;
 
@@ -51,6 +55,18 @@
           &:first-child {
             margin-right: 10px;
           }
+        }
+      }
+
+      .home-icon-wrap {
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: 2rem;
+        background-color: transparent;
+        border: none;
+        .home-icon-img {
+          width: 2.5rem;
+          height: 2.5rem;
         }
       }
     }
@@ -107,22 +123,31 @@
     width: 50rem;
 
     margin: 0 auto;
-    overflow: hidden;
+
     padding-bottom: 10rem;
 
     @include mobile {
       width: 100%;
       margin: 0;
+      touch-action: none;
     }
 
     .food-container {
       width: 100%;
       overflow: hidden;
+
+      @include no-drag;
       .food-slide-wrap {
         display: flex;
         width: 100%;
         left: -100%;
         position: relative;
+        min-height: calc(100vh - 8rem);
+
+        @include ios {
+          min-height: -webkit-fill-available;
+        }
+
         .food-list-wrap {
           padding: 0;
           margin: 0;
@@ -136,17 +161,23 @@
           justify-content: space-between;
 
           .food-item {
+            cursor: pointer;
             position: relative;
             color: $color-black;
             margin: 1rem;
             width: calc(50% - 2rem);
+
             height: 15rem;
             background-color: $color-background;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             text-align: center;
+
+            @include mobile {
+              height: 6rem;
+            }
+
             @include darkmode {
               color: $color-white;
               background-color: $color-black;
@@ -154,7 +185,13 @@
 
             .food-img {
               width: 60%;
+              height: auto;
               border-radius: 50%;
+
+              @include mobile {
+                width: auto;
+                height: 100%;
+              }
             }
 
             .food-text {
@@ -166,6 +203,11 @@
               font-size: 1.5rem;
               text-align: center;
               font-family: 'DABANGU';
+
+              @include mobile {
+                font-size: 1.2rem;
+                transform: translateY(1.4rem);
+              }
             }
           }
         }

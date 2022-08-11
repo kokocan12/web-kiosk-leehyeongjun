@@ -32,25 +32,58 @@
   @include mobile {
     top: 0;
     left: 0;
-    height: 100vh;
+
     width: 100%;
+    height: 100%;
     transform: translate(0%);
     border-radius: 40px 40px 0 0;
+    @include ios {
+      touch-action: none;
+    }
+
+    overflow-y: auto;
   }
 
-  .head-text {
-    text-align: center;
+  .head-text-wrap {
+    position: relative;
+    .head-text {
+      text-align: center;
+      font-size: 1.3rem;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      position: absolute;
+      right: 2rem;
+      top: 0;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      width: 2rem;
+      height: 2rem;
+
+      .close-icon {
+        width: inherit;
+        height: inherit;
+      }
+
+      @include mobile {
+        display: none;
+      }
+    }
   }
 
   .img-wrap {
     width: 100%;
-    height: 20rem;
+    height: 10rem;
     display: flex;
     justify-content: center;
 
     .food-img {
-      width: 20rem;
-      height: 20rem;
+      width: 10rem;
+      height: 10rem;
       border-radius: 20px;
     }
   }
@@ -94,6 +127,7 @@
       width: 100%;
       margin-top: 25px;
       .count-btn {
+        cursor: pointer;
         width: 1.5rem;
         height: 1.5rem;
         padding: 0;

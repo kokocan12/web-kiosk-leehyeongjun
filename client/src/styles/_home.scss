@@ -2,6 +2,11 @@
   @include no-drag;
   width: 100%;
   height: 100vh;
+
+  @include ios {
+    height: -webkit-fill-available;
+  }
+
   display: flex;
   flex-direction: column;
   justify-content: center;

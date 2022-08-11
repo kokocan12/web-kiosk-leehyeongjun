@@ -1,0 +1,138 @@
+.shopping-basket-wrap {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70rem;
+  height: 5.5rem;
+  border-radius: 10px;
+  background-color: $color-dark-brown;
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    width: 100%;
+    bottom: 1rem;
+  }
+
+  .food-list-wrap {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    height: 5.5rem;
+    align-items: center;
+    overflow: auto;
+    border-radius: 1.5rem;
+    @include no-scroll;
+
+    .food-item-wrap {
+      width: 4.5rem;
+      height: 4.5rem;
+      position: relative;
+      margin-right: 1.4rem;
+
+      .food-item-img {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 50%;
+      }
+
+      .abs {
+        position: absolute;
+        display: block;
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 50%;
+      }
+
+      .count-text {
+        color: $color-white;
+        left: -5px;
+        top: -5px;
+        width: auto;
+        padding: 0 9px;
+        text-align: center;
+        line-height: 1.8rem;
+        background-color: $color-red;
+        font-family: 'DABANGU';
+      }
+
+      .temper {
+        width: 1.8rem;
+        height: 1.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: -5px;
+        bottom: -5px;
+
+        .cool-img {
+          width: inherit;
+          height: inherit;
+        }
+
+        .hot-img {
+          width: inherit;
+          height: inherit;
+        }
+      }
+
+      .size {
+        width: 1.8rem;
+        height: 1.8rem;
+        right: -5px;
+        bottom: -5px;
+        color: $color-white;
+        line-height: 1.8rem;
+        background-color: $color-orange;
+        text-align: center;
+        font-family: 'DABANGU';
+      }
+
+      .delete-button {
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        background-color: #404040;
+        border-radius: 50%;
+        right: -5px;
+        top: -5px;
+
+        .delete-icon-img {
+          width: inherit;
+          height: inherit;
+        }
+      }
+    }
+  }
+
+  .timer-wrap {
+    margin-left: auto;
+
+    width: 3rem;
+
+    .timer-text {
+      width: 3rem;
+      height: 3rem;
+      color: #fff;
+      &.highlight {
+        color: $color-highlight-red;
+      }
+    }
+  }
+
+  .button-wrap {
+    display: flex;
+    align-items: center;
+
+    .btn {
+      width: 7rem;
+      height: 3rem;
+      margin-right: 1rem;
+    }
+
+    .cancel-btn {
+      background-color: $color-red;
+    }
+  }
+}

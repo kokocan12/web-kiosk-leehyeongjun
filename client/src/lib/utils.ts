@@ -1,11 +1,27 @@
 import { FoodTypes } from '@hooks/useFoods';
 import { CategoryTypes } from '@hooks/useCategories';
+import { OrderTypes } from '@hooks/useOrderModalOptionState';
 export function invariant(condition: boolean, message: string) {
   if (condition) throw Error(message);
 }
 
 export function isPlainObject(something: any) {
   return !!something && Object.getPrototypeOf(something) === Object.prototype;
+}
+
+export function isEmptyObject(something: any) {
+  const keys = Object.keys(something);
+
+  return keys.length === 0;
+}
+
+export function orderToCode(order: OrderTypes) {
+  return `${order.id}-${order.options.size}-${order.options.temperature}`;
+}
+
+export function combineOrder(order: OrderTypes, order2: OrderTypes) {
+  const newOrder: OrderTypes = { ...order, unit: order.unit + order2.unit };
+  return newOrder;
 }
 
 export function stringToQuery(str: string): {
@@ -124,13 +140,15 @@ export function getSideItems(
 
 export const setBodyOverflowYHidden = (hidden: boolean) => {
   if (hidden) {
+    document.body.style.maxHeight = '100vh';
     document.body.style.overflowY = 'hidden';
   } else {
+    document.body.style.maxHeight = '';
     document.body.style.overflowY = '';
   }
 };
 
 export const comma = (num: number) => {
-  if (isNaN(+num)) return '';
+  if (num === null || num === undefined || isNaN(+num)) return '';
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };

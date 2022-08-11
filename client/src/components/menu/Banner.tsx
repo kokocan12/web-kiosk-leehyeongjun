@@ -1,5 +1,6 @@
 import { CategoryTypes } from '@hooks/useCategories';
-import { Logo } from '@icons';
+import { HomeIcon, Logo } from '@icons';
+import { useNavigation } from '@lib/router';
 import { RefObject } from 'react';
 
 type BannerPropTypes = {
@@ -15,6 +16,12 @@ export const Banner = ({
   category,
   onCategoryClick,
 }: BannerPropTypes) => {
+  const navigation = useNavigation();
+
+  const onHomeButtonClick = () => {
+    navigation.push({ to: '/' });
+  };
+
   return (
     <header className="banner-wrap">
       <div className="banner">
@@ -25,6 +32,9 @@ export const Banner = ({
           <span className="text">COFFEE</span>
           <span className="text">KING</span>
         </div>
+        <button onClick={onHomeButtonClick} className="home-icon-wrap">
+          <img className="home-icon-img" src={HomeIcon} alt="home-icon" />
+        </button>
       </div>
       <div className="category-container">
         <ul ref={categoryRef} className="category-wrap">

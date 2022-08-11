@@ -10,6 +10,12 @@
   }
 }
 
+@mixin ios {
+  @supports (-webkit-touch-callout: none) {
+    @content;
+  }
+}
+
 @mixin no-drag {
   -webkit-user-select: none;
   -moz-user-select: none;

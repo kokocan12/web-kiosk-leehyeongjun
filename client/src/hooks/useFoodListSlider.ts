@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { CategoryTypes } from '@hooks/useCategories';
 import { useNavigation } from '@lib/router';
-import { getSideCategories, setBodyOverflowYHidden } from '@lib/utils';
+import { getSideCategories } from '@lib/utils';
 
 export const useFoodListSlider = (
   categories: CategoryTypes[],
@@ -9,16 +9,18 @@ export const useFoodListSlider = (
 ) => {
   const DIFF_MAX = Math.min(document.body.clientWidth, 800);
   const touchStartX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
   const touchStartTimestamp = useRef<number>(0);
   const transition = useRef(false);
+
   const [moveX, setMoveX] = useState(0);
   const { changeQuery, query } = useNavigation();
 
   const onTouchStart = (evt: React.TouchEvent) => {
     touchStartX.current = evt.touches[0].clientX;
+    touchStartY.current = evt.touches[0].clientY;
     transition.current = false;
     touchStartTimestamp.current = new Date().valueOf();
-    setBodyOverflowYHidden(true);
   };
 
   const onTouchMove = (evt: React.TouchEvent) => {
@@ -41,10 +43,12 @@ export const useFoodListSlider = (
     const diff = timestamp - touchStartTimestamp.current;
 
     if (diff <= MAX_INTERVAL) {
-      if (moveX > 0) {
+      if (moveX > 50) {
         setMoveX(DIFF_MAX);
-      } else if (moveX < 0) {
+      } else if (moveX < -50) {
         setMoveX(-1 * DIFF_MAX);
+      } else {
+        setMoveX(0);
       }
       return;
     }
@@ -68,7 +72,6 @@ export const useFoodListSlider = (
       query.category = rightCategory + '';
     }
 
-    setBodyOverflowYHidden(false);
     transition.current = false;
     changeQuery(query);
     setMoveX(0);

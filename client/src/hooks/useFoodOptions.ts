@@ -1,9 +1,16 @@
 import { useAsyncState } from '@lib/global-state';
 import { options } from '@/api';
 
+export type FoodSizeOptionTypes = {
+  [id: number]: { s?: number; m?: number; l?: number };
+};
+export type FoodTemperatureOptionTypes = {
+  [id: number]: { c?: number; h?: number };
+};
+
 export type FoodOptionTypes = {
-  size: { [id: number]: { s?: number; m?: number; l?: number } };
-  temperature: { [id: number]: { c?: number; h?: number } };
+  size: FoodSizeOptionTypes;
+  temperature: FoodTemperatureOptionTypes;
 };
 
 const fetcher = async (): Promise<FoodOptionTypes> => {

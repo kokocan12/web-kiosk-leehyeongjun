@@ -1,5 +1,4 @@
-import { isPlainObject } from '@lib/utils';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 const globalState = new Map();
 const subscribers = new Map();
@@ -19,12 +18,7 @@ function useSyncState<T>(key: string, initialState: T) {
 
   const state = currentState;
   const mutate = (newState: Partial<T>) => {
-    if (isPlainObject(state)) {
-      globalState.set(key, { ...state, ...newState });
-    } else {
-      globalState.set(key, newState);
-    }
-
+    globalState.set(key, newState);
     notify();
   };
 

@@ -1,6 +1,5 @@
 import { useMenuState } from '@hooks/useMenuState';
 import { Banner, FoodList } from '@components';
-import { useEffect } from 'react';
 
 export const Menu = () => {
   const {

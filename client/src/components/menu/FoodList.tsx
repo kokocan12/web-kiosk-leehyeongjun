@@ -36,10 +36,10 @@ export const FoodList = ({
 
   return (
     <div
+      className="food-container"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
-      className="food-container"
     >
       <div
         className="food-slide-wrap"
