@@ -38,6 +38,7 @@ lerna-debug.log*
 
 # OS
 server/.DS_Store
+.DS_Store
 
 # Tests
 /coverage
@@ -59,3 +60,4 @@ server/.env
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
