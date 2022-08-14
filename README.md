@@ -1,6 +1,8 @@
 # [웹] 5-6주차 미션 키오스크
-![image](https://user-images.githubusercontent.com/49009864/184526605-e61e27d5-38a7-4fa5-bb26-3be29790fcdf.png) <br/>
+![swipe1](https://user-images.githubusercontent.com/49009864/184528137-1beda76d-3654-46f8-8322-decdf7261c46.gif) <br/>
+![swipe2](https://user-images.githubusercontent.com/49009864/184528160-0075c32e-171e-4638-b8fb-aaa5b03fcebe.gif) <br/>
 무인 주문시스템인 키오스크를 웹으로 구현한 프로젝트입니다. <br/>
+
 2022/08/01 ~ 2022/08/12 약 2주간 진행하였습니다. <br/>
 
 웹 클라이언트는 typescript, reactjs, sass를 기반으로 <br/>
