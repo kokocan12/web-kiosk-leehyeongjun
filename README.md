@@ -11,7 +11,7 @@
 ERD 및 제작하면서 고민했던 것들, 고려했던 것들, 도전했던 것들은 위키에서 확인하실 수 있습니다.
 
 ## Wiki
-[Wiki](https://github.com/woowa-techcamp-2022/web-kiosk-leehyeongjun/wiki)
+[Wiki](https://github.com/kokocan12/web-kiosk-leehyeongjun/wiki)
 
 
 ## 데모페이지 및 소개 영상
